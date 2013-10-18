@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="planets_array">
+        <!-- First Item will be dynamic-->
+        <item>%1$s</item>
+        <item>Schedule</item>
+        <item>Competitions</item>
+        <item>Hotel</item>
+        <item>Contact</item>
+        <!--Register if no profile, otherwise, profile-->
+        <item>%1$s</item>
+
+
+    </string-array>
+</resources>
