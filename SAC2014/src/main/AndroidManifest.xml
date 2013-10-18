@@ -24,6 +24,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+             android:name="com.rowan.ieee.sac2014.WebViewActivity"
+            android:label="SAC 2014">
+
+        </activity>
     </application>
 
 </manifest>

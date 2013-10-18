@@ -206,6 +206,12 @@ package com.rowan.ieee.sac2014;
                 } catch(Exception e) {
                     Cheers(e.getMessage()+" "+e.getLocalizedMessage());
                 }
+            } else if(position != 0) {
+                try {
+                    myWebView.loadUrl("http://www.google.com");
+                } catch(Exception e) {
+                    Cheers(e.getMessage()+" "+e.getLocalizedMessage());
+                }
             }
             try {
                 //myWebView.loadUrl("http://www.example.com");
@@ -258,6 +264,7 @@ package com.rowan.ieee.sac2014;
             public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                      Bundle savedInstanceState) {
                 View rootView = inflater.inflate(R.layout.fragment_planet, container, false);
+                //@TODO Remove frag_planet references
                 int i = getArguments().getInt(ARG_PLANET_NUMBER);
                 String planet = getResources().getStringArray(R.array.planets_array)[i];
 
