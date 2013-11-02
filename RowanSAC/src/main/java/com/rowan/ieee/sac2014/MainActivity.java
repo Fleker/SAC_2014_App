@@ -199,7 +199,8 @@ public class MainActivity extends ActionBarActivity {
             Cheers("Item Selection Error: "+e.getMessage());
         }
         Cheers("You selected item #"+position+", "+mPlanetTitles[position]);
-        setTitle(mPlanetTitles[position]);
+        //setTitle(mPlanetTitles[position]);
+        setTitle("BOB");
 
         try {
             refreshDrawerContents();
