@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SAC2014/SAC2014.iml" filepath="$PROJECT_DIR$/SAC2014/SAC2014.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SAC2014Project.iml" filepath="$PROJECT_DIR$/SAC2014Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RowanSAC.iml" filepath="$PROJECT_DIR$/RowanSAC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RowanSAC/RowanSAC-RowanSAC.iml" filepath="$PROJECT_DIR$/RowanSAC/RowanSAC-RowanSAC.iml" />
     </modules>
   </component>
 </project>

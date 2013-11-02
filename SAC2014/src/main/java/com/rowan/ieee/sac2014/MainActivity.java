@@ -199,14 +199,7 @@ package com.rowan.ieee.sac2014;
             setTitle(mPlanetTitles[position]);
             mDrawerLayout.closeDrawer(mDrawerList);
             //@TODO Load new webpage
-            if(position == 5) {
-                try {
-                    Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
-                    startActivity(intent);
-                } catch(Exception e) {
-                    Cheers(e.getMessage()+" "+e.getLocalizedMessage());
-                }
-            } else if(position != 0) {
+            if(position != 0) {
                 try {
                     myWebView.loadUrl("http://www.google.com");
                 } catch(Exception e) {
