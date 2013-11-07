@@ -36,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
     private ActionBarDrawerToggle mDrawerToggle;
 
     private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
+    CharSequence mTitle;
     private String[] mPlanetTitles;
 
     WebView myWebView;
@@ -71,11 +71,12 @@ public class MainActivity extends ActionBarActivity {
                 R.string.drawer_close  /* "close drawer" description for accessibility */
         ) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
+                //getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
+                //Cheers((String) mDrawerTitle);
                 getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
@@ -95,7 +96,7 @@ public class MainActivity extends ActionBarActivity {
         //Load the application
         //myWebView.loadUrl("http://www.rowan.edu/clubs/ieee/a/");
         //@TODO Fix WebView so it loads, then remove this command and use onSelectItem code instead
-        myWebView.loadUrl("http://www.example.com");
+        myWebView.loadUrl("http://sac.xsorcreations.com/");
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -133,9 +134,12 @@ public class MainActivity extends ActionBarActivity {
         }
         // Handle action buttons
         switch(item.getItemId()) {
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.action_settings:
+                Intent i = new Intent(MainActivity.this, Settings.class);
+                startActivity(i);
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     /* The click listner for ListView in the navigation drawer */
@@ -168,10 +172,10 @@ public class MainActivity extends ActionBarActivity {
             if(true) {
                 mPlanetTitles[0] = "Now";
             }
-
-            if(true) /*Registered*/
+            String fiveurl = "http://sac.xsorcreations.com/index.php?p=registration";
+            if(false) /*Registered*/ {
                 mPlanetTitles[5] = "Profile";
-            else
+            } else
                 mPlanetTitles[5] = "Register";
             switch(position) {
                 case 0:
@@ -180,32 +184,32 @@ public class MainActivity extends ActionBarActivity {
                     //setTitle(mPlanetTitles[position]);
                     break;
                 case 1:
-                    myWebView.loadUrl("http://serebii.net");
+                    myWebView.loadUrl("http://sac.xsorcreations.com/index.php?p=home");
                     break;
                 case 2:
-                    myWebView.loadUrl("http://serebii.net");
+                    myWebView.loadUrl("http://sac.xsorcreations.com/index.php?p=competitions");
                     break;
                 case 3:
-                    myWebView.loadUrl("http://serebii.net");
+                    myWebView.loadUrl("http://sac.xsorcreations.com/index.php?p=hotel");
                     break;
                 case 4:
-                    myWebView.loadUrl("http://serebii.net");
+                    myWebView.loadUrl("http://sac.xsorcreations.com/index.php?p=schedule");
                     break;
                 case 5:
-                    myWebView.loadUrl("http://androidpolice.com");
+                    myWebView.loadUrl(fiveurl);
                     break;
             }
         } catch(Exception e) {
-            Cheers("Item Selection Error: "+e.getMessage());
+            //Cheers("Item Selection Error: "+e.getMessage());
         }
-        Cheers("You selected item #"+position+", "+mPlanetTitles[position]);
-        //setTitle(mPlanetTitles[position]);
-        setTitle("BOB");
+        //Cheers("You selected item #"+position+", "+mPlanetTitles[position]);
+        setTitle(mPlanetTitles[position]);
+        //setTitle("BOB");
 
         try {
             refreshDrawerContents();
         } catch(Exception e) {
-            Cheers(e.getMessage()+" "+e.getLocalizedMessage());
+            //Cheers(e.getMessage()+" "+e.getLocalizedMessage());
         }
 
     }
@@ -218,6 +222,7 @@ public class MainActivity extends ActionBarActivity {
     public void setTitle(CharSequence title) {
         mTitle = title;
         getActionBar().setTitle(mTitle);
+       // Cheers(title+" "+mTitle);
     }
 
     public void refreshDrawerContents() {
@@ -265,7 +270,7 @@ public class MainActivity extends ActionBarActivity {
             int imageId = getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
                     "drawable", getActivity().getPackageName());
             ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
-            getActivity().setTitle(planet);
+            //getActivity().setTitle(planet);
             return rootView;
         }
     }

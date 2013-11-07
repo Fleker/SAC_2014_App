@@ -2,13 +2,17 @@
 <resources>
     <string-array name="planets_array">
         <!-- First Item will be dynamic-->
-        <item>%1$s</item>
-        <item>Schedule</item>
+        <item>Now</item>
+        <item>News</item> <!--Home-->
         <item>Competitions</item>
         <item>Hotel</item>
+        <item>Schedule</item>
+        <!--<item>FAQ</item>
         <item>Contact</item>
+        Put these items in Settings. Do they NEED to be in the nav bar?
+        -->
         <!--Register if no profile, otherwise, profile-->
-        <item>%1$s</item>
+        <item>Register</item>
 
 
     </string-array>
