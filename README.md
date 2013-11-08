@@ -9,3 +9,5 @@ Rowan's mobile app for SAC
 - Switch to official nav bar items
 - Modify links
 - Other stuff
+- Notifications
+- Handle orientation switching
