@@ -1,16 +1,31 @@
 package com.rowan.ieee.sac14;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.FragmentManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.SearchManager;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.*;
 import android.os.Bundle;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,7 +53,9 @@ public class MainActivity extends ActionBarActivity {
     private CharSequence mDrawerTitle;
     CharSequence mTitle;
     private String[] mPlanetTitles;
-
+    private final static int
+            CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private int mId = 314159;
     WebView myWebView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +154,9 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_settings:
                 Intent i = new Intent(MainActivity.this, Settings.class);
                 startActivity(i);
+                break;
+            case R.id.notify:
+                testNote();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -274,5 +294,88 @@ public class MainActivity extends ActionBarActivity {
             return rootView;
         }
     }
+    @Override
+    protected void onActivityResult(
+            int requestCode, int resultCode, Intent data) {
+        // Decide what to do based on the original request code
+        switch (requestCode) {
+            case CONNECTION_FAILURE_RESOLUTION_REQUEST :
+            /*
+             * If the result code is Activity.RESULT_OK, try
+             * to connect again
+             */
+                switch (resultCode) {
+                    case Activity.RESULT_OK :
+                    /*
+                     * Try the request again
+                     */
+                     break;
+                }
+        }
+    }
+    private boolean servicesConnected() {
+        // Check that Google Play services is available
+        int resultCode = GooglePlayServicesUtil.
+                        isGooglePlayServicesAvailable(this);
+        // If Google Play services is available
+        if (ConnectionResult.SUCCESS == resultCode) {
+            // In debug mode, log the status
+            Log.d("Location Updates",
+                    "Google Play services is available.");
+            // Continue
+            return true;
+            // Google Play services was not available for some reason
+        } else {
+            // Get the error code
+            //int errorCode = connectionResult.getErrorCode();
+            // Get the error dialog from Google Play services
+            Cheers("Google Play Services Error!");
+            return false;
+        }
+    }
+
+    /*** *** NOTIFICATIONS *** ***/
+    public void testNote() {
+        Bitmap icon = BitmapFactory.decodeResource(this.getApplicationContext().getResources(),
+                R.drawable.ic_launcher);
+    NotificationCompat.Builder mBuilder =
+            new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.note_icon)
+                    .setContentTitle("SAC Hint")
+                    .setLargeIcon(icon)
+                    .setWhen(System.currentTimeMillis()+1000*60*30)
+                    .setContentText("Physics Competition - 30 minutes");
+    // Creates an explicit intent for an Activity in your app
+    Intent resultIntent = new Intent(this, MainActivity.class);
+
+    //Make BIG notifications
+        NotificationCompat.InboxStyle inboxStyle =
+                new NotificationCompat.InboxStyle();
+        inboxStyle.setBigContentTitle("SAC Hint");
+        inboxStyle.addLine("The "+"Physics Competition"+" will begin in thirty minutes.");
+        inboxStyle.addLine("This will take place at "+"Rowan Hall Auditorium"+".");
+        inboxStyle.addLine("Please make sure you are on the bus and ready in time.");
+        mBuilder.setStyle(inboxStyle);
+
+    // The stack builder object will contain an artificial back stack for the
+// started Activity.
+// This ensures that navigating backward from the Activity leads out of
+// your application to the Home screen.
+    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+// Adds the back stack for the Intent (but not the Intent itself)
+    stackBuilder.addParentStack(MainActivity.class);
+// Adds the Intent that starts the Activity to the top of the stack
+    stackBuilder.addNextIntent(resultIntent);
+    PendingIntent resultPendingIntent =
+            stackBuilder.getPendingIntent(
+                    0,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+            );
+    mBuilder.setContentIntent(resultPendingIntent);
+    NotificationManager mNotificationManager =
+            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    // mId allows you to update the notification later on.
+    mNotificationManager.notify(mId, mBuilder.build());
+ }
 
 }
