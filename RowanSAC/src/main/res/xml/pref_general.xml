@@ -31,10 +31,10 @@
         android:positiveButtonText="@null" />-->
     <Preference android:title="FAQ" android:icon="@android:drawable/ic_menu_help">
         <intent android:action="android.intent.action.VIEW"
-            android:data="http://rowan.edu/clubs/ieee/sac/index.php?p=faq"/>
+            android:data="http://sac.xsorcreations.com/index.php?p=faq"/>
     </Preference>
     <Preference android:title="Contact Us" android:icon="@android:drawable/ic_dialog_email">
         <intent android:action="android.intent.action.VIEW"
-            android:data="mailto:ieee@rowan.edu?subject=SAC%20Android%20Application"/>
+            android:data="mailto:ieee@gmail.com?subject=SAC%20Android%20Application"/>
     </Preference>
 </PreferenceScreen>

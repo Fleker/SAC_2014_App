@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RowanSAC.iml" filepath="$PROJECT_DIR$/RowanSAC.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SAC_2014_App.iml" filepath="$PROJECT_DIR$/SAC_2014_App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RowanSAC/RowanSAC-RowanSAC.iml" filepath="$PROJECT_DIR$/RowanSAC/RowanSAC-RowanSAC.iml" />
     </modules>
   </component>
 </project>
