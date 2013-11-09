@@ -3,13 +3,13 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="WRAPPED" />
+        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$USER_HOME$/.gradle/wrapper/dists/gradle-1.7-bin" />
+        <option name="gradleHome" value="$USER_HOME$/.gradle/wrapper/dists/gradle-1.8-bin/vruqmccc8532n7gr46qavsii8/gradle-1.8" />
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
-        <option name="externalProjectPath" value="C:\Users\N\Documents\GitHub\RowanSAC" />
+        <option name="externalProjectPath" value="C:\Users" />
       </GradleProjectSettings>
     </option>
     <option name="gradleVmOptions" value="-Xms128m" />

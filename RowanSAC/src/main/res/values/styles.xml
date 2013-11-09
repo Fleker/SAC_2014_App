@@ -4,7 +4,6 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/MyActionBar</item>
-        <item name="android:popupMenuStyle">@style/Theme.DropDown.Dark.Rowan</item>
     </style>
 
     <style name="MyActionBar"
@@ -16,14 +15,5 @@
         parent="android:Theme.Holo">
  <!--       <item name="android:">30dp</item>-->
     </style>
-    <style name="Theme.DropDown.Dark.Rowan"
-        parent="android:Widget.ActionBar">
-        <item name="android:background">@color/rowanbrown</item>
-    </style>
-    <style name="myDropDownListView"
-        parent="Theme.DropDown.Dark.Rowan">
-        <item name="android:background">@color/rowanbrown</item>
-    </style>
     <color name="rowanbrown">#3F1A0A</color>
-    <color name="rowanbrowndark">#ff1e0f07</color>
 </resources>
