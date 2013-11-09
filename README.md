@@ -10,4 +10,3 @@ Rowan's mobile app for SAC
 - Modify links
 - Other stuff
 - Notifications
-- Handle orientation switching
