@@ -113,7 +113,7 @@ public class MainActivity extends ActionBarActivity {
         //Load the application
         //myWebView.loadUrl("http://www.rowan.edu/clubs/ieee/a/");
         //@TODO Fix WebView so it loads, then remove this command and use onSelectItem code instead
-        myWebView.loadUrl("http://sac.xsorcreations.com/");
+        myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/");
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -192,28 +192,28 @@ public class MainActivity extends ActionBarActivity {
             if(true) {
                 mPlanetTitles[0] = "Now";
             }
-            String fiveurl = "http://sac.xsorcreations.com/index.php?p=registration";
+            String fiveurl = "http://rowan.edu/clubs/ieee/sac/index.php?p=registration";
             if(false) /*Registered*/ {
                 mPlanetTitles[5] = "Profile";
             } else
                 mPlanetTitles[5] = "Register";
             switch(position) {
                 case 0:
-                    myWebView.loadUrl("http://google.com");
+                    myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/index.php?p=home");
                     //@TODO Change this to contextual content(or leave as now)
                     //setTitle(mPlanetTitles[position]);
                     break;
                 case 1:
-                    myWebView.loadUrl("http://sac.xsorcreations.com/index.php?p=home");
+                    myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/index.php?p=home");
                     break;
                 case 2:
-                    myWebView.loadUrl("http://sac.xsorcreations.com/index.php?p=competitions");
+                    myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/index.php?p=competitions");
                     break;
                 case 3:
-                    myWebView.loadUrl("http://sac.xsorcreations.com/index.php?p=hotel");
+                    myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/index.php?p=hotel");
                     break;
                 case 4:
-                    myWebView.loadUrl("http://sac.xsorcreations.com/index.php?p=schedule");
+                    myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/index.php?p=schedule");
                     break;
                 case 5:
                     myWebView.loadUrl(fiveurl);
