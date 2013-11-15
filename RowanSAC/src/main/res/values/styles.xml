@@ -1,10 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
+    <!--parent=-->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/MyActionBar</item>
-        <item name="android:popupMenuStyle">@style/Theme.DropDown.Dark.Rowan</item>
+        <item name="android:actionBarWidgetTheme">@style/Theme.stylingactionbar.widget</item>
     </style>
 
     <style name="MyActionBar"
@@ -20,10 +21,26 @@
         parent="android:Widget.ActionBar">
         <item name="android:background">@color/rowanbrown</item>
     </style>
+    <style name="overflow" parent="android:Widget.ListPopupWindow">
+        <item name="android:popupBackground">@color/rowanbrown</item>
+    </style>
     <style name="myDropDownListView"
         parent="Theme.DropDown.Dark.Rowan">
-        <item name="android:background">@color/rowanbrown</item>
+        <!--<item name="android:background">@color/rowanbrown</item>-->
+        <!--<item name="android:background">@drawable/jb1</item>-->
     </style>
+
+    <style name="Theme.stylingactionbar.widget" parent="@android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView</item>
+    </style>
+
+        <style name="PopupMenu" parent="@android:style/Widget.Holo.ListPopupWindow">
+            <item name="android:popupBackground">@color/rowanbrowndark</item> 
+        </style>
+         <style name="DropDownListView" parent="@android:style/Widget.Holo.ListView.DropDown">
+            <item name="android:listSelector">@color/rowanbrowndark</item>
+        </style>
     <color name="rowanbrown">#3F1A0A</color>
     <color name="rowanbrowndark">#ff1e0f07</color>
 </resources>

@@ -12,6 +12,11 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
@@ -156,7 +161,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(i);
                 break;
             case R.id.notify:
-                testNote();
+                testNote("", "");
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -335,25 +340,33 @@ public class MainActivity extends ActionBarActivity {
     }
 
     /*** *** NOTIFICATIONS *** ***/
-    public void testNote() {
+    public void testNote(String event, String location) {
+        if(event.length() == 0)
+            event = "Physics Competition";
+        if(location.length() == 0)
+            location = "Rowan Hall Auditorium";
         Bitmap icon = BitmapFactory.decodeResource(this.getApplicationContext().getResources(),
-                R.drawable.ic_launcher);
-    NotificationCompat.Builder mBuilder =
+                R.drawable.note);
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        MediaPlayer mp = new MediaPlayer();
+                mp.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
+        NotificationCompat.Builder mBuilder =
             new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.note_icon)
                     .setContentTitle("SAC Hint")
                     .setLargeIcon(icon)
-                    .setWhen(System.currentTimeMillis()+1000*60*30)
-                    .setContentText("Physics Competition - 30 minutes");
-    // Creates an explicit intent for an Activity in your app
+                    .setWhen(System.currentTimeMillis()/* + 1000 * 60 * 30*/)
+                    .setContentText(event+" - 30 minutes")
+                    .setSound(soundUri);
+        // Creates an explicit intent for an Activity in your app
     Intent resultIntent = new Intent(this, MainActivity.class);
 
     //Make BIG notifications
         NotificationCompat.InboxStyle inboxStyle =
                 new NotificationCompat.InboxStyle();
         inboxStyle.setBigContentTitle("SAC Hint");
-        inboxStyle.addLine("The "+"Physics Competition"+" will begin in thirty minutes.");
-        inboxStyle.addLine("This will take place at "+"Rowan Hall Auditorium"+".");
+        inboxStyle.addLine("The "+event+" will begin in thirty minutes.");
+        inboxStyle.addLine("This will take place at "+location+".");
         inboxStyle.addLine("Please make sure you are on the bus and ready in time.");
         mBuilder.setStyle(inboxStyle);
 
