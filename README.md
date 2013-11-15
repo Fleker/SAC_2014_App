@@ -10,3 +10,5 @@ Rowan's mobile app for SAC
 - Modify links
 - Other stuff
 - Notifications
+- Maintain current web state even when the device orientation changes. Right now it goes home.
+- Finally change the color of the overflow menu background
