@@ -12,3 +12,4 @@ Rowan's mobile app for SAC
 - Notifications
 - Maintain current web state even when the device orientation changes. Right now it goes home.
 - Finally change the color of the overflow menu background
+- cameraintegration andautoupload
