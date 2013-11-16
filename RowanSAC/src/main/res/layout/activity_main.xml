@@ -21,10 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/webview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
         </FrameLayout>
         <!-- android:layout_gravity="start" tells DrawerLayout to treat
@@ -35,15 +35,15 @@
              with the content view. -->
         <ListView
             android:id="@+id/left_drawer"
-            android:layout_width="320dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:choiceMode="singleChoice"
-            android:divider="@color/rowanbrown"
-            android:dividerHeight="2dp"
-            android:background="@drawable/drawerbg"
-            android:textFilterEnabled="false">
-        </ListView>
+        android:layout_width="320dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@color/rowanbrown"
+        android:dividerHeight="2dp"
+        android:background="@drawable/drawerbg"
+        android:textFilterEnabled="false">
+    </ListView>
 
     </android.support.v4.widget.DrawerLayout>
 
