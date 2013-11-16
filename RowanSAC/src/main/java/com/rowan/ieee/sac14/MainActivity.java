@@ -10,8 +10,10 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
@@ -45,6 +47,7 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -119,6 +122,18 @@ public class MainActivity extends ActionBarActivity {
         //myWebView.loadUrl("http://www.rowan.edu/clubs/ieee/a/");
         //@TODO Fix WebView so it loads, then remove this command and use onSelectItem code instead
         myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/");
+
+
+        /** Set the transparency of just the background
+        Resources res = getResources();
+        Drawable background = res.getDrawable(R.drawable.drawerbg);
+        // The layout which are to have the background:
+        LinearLayout layout = ((LinearLayout) );
+        // Now that we have the layout and the background, we adjust the opacity
+        // of the background, and sets it as the background for the layout
+            background.setAlpha(160);
+        layout.setBackground(background);**/
+        //findViewById(R.id.left_drawer).getBackground().setAlpha(160);
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -356,7 +371,7 @@ public class MainActivity extends ActionBarActivity {
                     .setContentTitle("SAC Hint")
                     .setLargeIcon(icon)
                     .setWhen(System.currentTimeMillis()/* + 1000 * 60 * 30*/)
-                    .setContentText(event+" - 30 minutes")
+                    .setContentText(event + " - 30 minutes")
                     .setSound(soundUri);
         // Creates an explicit intent for an Activity in your app
     Intent resultIntent = new Intent(this, MainActivity.class);

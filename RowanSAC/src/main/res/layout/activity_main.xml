@@ -35,15 +35,15 @@
              with the content view. -->
         <ListView
             android:id="@+id/left_drawer"
-            android:layout_width="360dp"
+            android:layout_width="320dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:choiceMode="singleChoice"
             android:divider="@color/rowanbrown"
             android:dividerHeight="2dp"
-            android:background="@drawable/jb1"
-            android:alpha="0.5"
-            android:textFilterEnabled="false" />
+            android:background="@drawable/drawerbg"
+            android:textFilterEnabled="false">
+        </ListView>
 
     </android.support.v4.widget.DrawerLayout>
 
