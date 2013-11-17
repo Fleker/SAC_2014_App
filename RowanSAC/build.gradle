@@ -14,31 +14,16 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19"
+    buildToolsVersion "18.1.1"
 
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 18
     }
-
-    signingConfigs {
-        release {
-            storeFile file("keystore.jks")
-            storePassword "H0U5Hm@nD"
-            keyAlias "rowan ieee sac"
-            keyPassword "ruM@THT3@M"
-        }
-    }
-    buildTypes {
-        release {
-	    signingConfig signingConfigs.release
-        }
-    }
 }
-
 
 dependencies {
 	compile 'com.android.support:appcompat-v7:19.0.0'
 	compile 'com.android.support:support-v4:18.0.0'
-        compile 'com.google.android.gms:play-services:4.0.30'
+    compile 'com.google.android.gms:play-services:4.0.30'
 }
