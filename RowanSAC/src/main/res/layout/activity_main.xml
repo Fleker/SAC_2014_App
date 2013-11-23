@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
-    android:paddingTop="0dp"
+    android:paddingTop="80dp"
     android:paddingBottom="0dp"
     tools:context=".MainActivity">
 
@@ -40,7 +40,7 @@
             android:layout_gravity="start|top"
             android:choiceMode="singleChoice"
             android:divider="@color/rowanbrown"
-            android:dividerHeight="2dp"
+            android:dividerHeight="0.5dp"
             android:background="@android:color/white"
             android:textFilterEnabled="false">
         </ListView>

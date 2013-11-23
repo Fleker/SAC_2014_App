@@ -24,6 +24,7 @@
     android:paddingRight="16dp"
     android:textColor="#000"
     android:textSize="20dp"
+    android:fontFamily="sans-serif-light"
     android:paddingTop="20dp"
     android:paddingBottom="20dp"
     android:background="?android:attr/activatedBackgroundIndicator"

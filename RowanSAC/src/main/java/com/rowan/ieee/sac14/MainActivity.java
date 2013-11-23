@@ -9,6 +9,8 @@ import android.app.SearchManager;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -19,6 +21,8 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
@@ -52,7 +56,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity {
@@ -67,6 +77,31 @@ public class MainActivity extends ActionBarActivity {
             CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private int mId = 314159;
     WebView myWebView;
+    /** Parse through unnecessary variables **/
+    private static final int ACTION_TAKE_PHOTO_B = 1;
+    private static final int ACTION_TAKE_PHOTO_S = 2;
+    private static final int ACTION_TAKE_VIDEO = 3;
+
+    private static final String BITMAP_STORAGE_KEY = "viewbitmap";
+    private static final String IMAGEVIEW_VISIBILITY_STORAGE_KEY = "imageviewvisibility";
+    private ImageView mImageView;
+    private Bitmap mImageBitmap;
+
+    private static final String VIDEO_STORAGE_KEY = "viewvideo";
+    private static final String VIDEOVIEW_VISIBILITY_STORAGE_KEY = "videoviewvisibility";
+    private VideoView mVideoView;
+    private Uri mVideoUri;
+
+    private String mCurrentPhotoPath;
+
+    private static final String JPEG_FILE_PREFIX = "PHOTO_";
+    private static final String JPEG_FILE_SUFFIX = ".jpg";
+    private static final int READ_REQUEST_CODE = 42;
+    private static final int PICKFILE_RESULT_CODE = 271828;
+
+    private AlbumStorageDirFactory mAlbumStorageDirFactory = null;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,10 +118,9 @@ public class MainActivity extends ActionBarActivity {
         View v = new ImageView(getBaseContext());
         ImageView image;
         image = new ImageView(v.getContext());
-        image.setImageDrawable(v.getResources().getDrawable(R.drawable.drawerbg_short));
+        image.setImageDrawable(v.getResources().getDrawable(R.drawable.nav_bar_header));
         image.setScaleType(ImageView.ScaleType.MATRIX);
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
-        image.getLayoutParams().height = px;
+
         /*int height = 30;
         image.setMaxHeight(height);
         image.setMinimumHeight(height);*/
@@ -136,24 +170,47 @@ public class MainActivity extends ActionBarActivity {
         //Load the application
         //myWebView.loadUrl("http://www.rowan.edu/clubs/ieee/a/");
         //@TODO Fix WebView so it loads, then remove this command and use onSelectItem code instead
-        myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/?app=1");
+        /** Share Image with App*/
+        // Get intent, action and MIME type
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if (type.startsWith("image/")) {
+                handleSendImage(intent); // Handle single image being sent
+            }
+        } else { /* Launched directly */
+            myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/?app=1");
+        }
 
 
         /** Set the transparency of just the background
-        Resources res = getResources();
-        Drawable background = res.getDrawable(R.drawable.drawerbg);
-        // The layout which are to have the background:
-        LinearLayout layout = ((LinearLayout) );
-        // Now that we have the layout and the background, we adjust the opacity
-        // of the background, and sets it as the background for the layout
-            background.setAlpha(160);
-        layout.setBackground(background);**/
+         Resources res = getResources();
+         Drawable background = res.getDrawable(R.drawable.drawerbg);
+         // The layout which are to have the background:
+         LinearLayout layout = ((LinearLayout) );
+         // Now that we have the layout and the background, we adjust the opacity
+         // of the background, and sets it as the background for the layout
+         background.setAlpha(160);
+         layout.setBackground(background);**/
         //findViewById(R.id.left_drawer).getBackground().setAlpha(160);
+    }
+    void handleSendImage(Intent intent) {
+        Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        Cheers("You wish to share "+imageUri+". This function isn't complete yet. Please try again later.");
+        if (imageUri != null) {
+            // Update UI to reflect image being shared
+            Intent upload = new Intent(this, UploadPhoto.class);
+            upload.putExtra("path", imageUri);
+            upload.putExtra("name", imageUri);
+            startActivity(upload);
+        }
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // Check if the key event was the Back button and if there's history
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack() && !mDrawerLayout.isDrawerOpen(mDrawerList)) {
             myWebView.goBack();
             return true;
         }
@@ -173,7 +230,8 @@ public class MainActivity extends ActionBarActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+       // menu.findItem(R.id.action_camera).setVisible(true);
+        //menu.findItem(R.id.action_upload).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -193,8 +251,203 @@ public class MainActivity extends ActionBarActivity {
             case R.id.notify:
                 testNote("", "");
                 break;
+            case R.id.action_camera:
+                if(isIntentAvailable(getApplicationContext(), MediaStore.ACTION_IMAGE_CAPTURE))
+                    dispatchTakePictureIntent(ACTION_TAKE_PHOTO_B);
+                else
+                    Cheers("Camera not available");
+                break;
+            case R.id.action_upload:
+                performFileSearch();
+                break;
+
         }
         return super.onOptionsItemSelected(item);
+
+    }
+     /*
+    * Camera Features
+     */
+    //Two functions below exist for the camera feature
+    public static boolean isIntentAvailable(Context context, String action) {
+        final PackageManager packageManager = context.getPackageManager();
+        final Intent intent = new Intent(action);
+        List<ResolveInfo> list =
+                packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
+    private void dispatchTakePictureIntent(int actionCode) {
+        mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+        switch(actionCode) {
+            case ACTION_TAKE_PHOTO_B:
+                File f = null;
+
+                try {
+                    f = setUpPhotoFile();
+                    mCurrentPhotoPath = f.getAbsolutePath();
+                    //Cheers("Save to: "+mCurrentPhotoPath);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                   /* Cheers("Photo saved");*/
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    f = null;
+                    mCurrentPhotoPath = null;
+                    Cheers("Photo not saved: "+e.getMessage());
+                }
+                break;
+
+            default:
+                break;
+        } // switch
+        } catch(Exception e) {
+            Cheers("Camera broke: "+e.getMessage());
+        }
+
+        startActivityForResult(takePictureIntent, actionCode);
+    }
+    //Return and save image
+
+    private void handleSmallCameraPhoto(Intent intent) {
+        Bundle extras = intent.getExtras();
+        mImageBitmap = (Bitmap) extras.get("data");
+        mImageView.setImageBitmap(mImageBitmap);
+        mVideoUri = null;
+        mImageView.setVisibility(View.VISIBLE);
+        mVideoView.setVisibility(View.INVISIBLE);
+    }
+
+    private void handleBigCameraPhoto() {
+        //Cheers("HBCP "+mCurrentPhotoPath);
+        if (mCurrentPhotoPath != null) {
+           // Cheers("setPic");
+            //setPic();
+            //Cheers("galleryAddPic");
+            galleryAddPic();
+            mCurrentPhotoPath = null;
+        }
+
+    }
+    private void setPic() {
+
+		/* There isn't enough memory to open up more than a couple camera photos */
+		/* So pre-scale the target bitmap into which the file is decoded */
+
+		/* Get the size of the ImageView */
+        int targetW = mImageView.getWidth();
+        int targetH = mImageView.getHeight();
+
+		/* Get the size of the image */
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+		/* Figure out which way needs to be reduced less */
+        int scaleFactor = 1;
+        if ((targetW > 0) || (targetH > 0)) {
+            scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+        }
+
+		/* Set bitmap options to scale the image decode target */
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+		/* Decode the JPEG file into a Bitmap */
+        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+
+		/* Associate the Bitmap to the ImageView */
+        mImageView.setImageBitmap(bitmap);
+        mVideoUri = null;
+        mImageView.setVisibility(View.VISIBLE);
+        mVideoView.setVisibility(View.INVISIBLE);
+    }
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+        //Cheers(mCurrentPhotoPath);
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        //Cheers(contentUri.getPath());
+
+        mediaScanIntent.setData(contentUri);
+        Cheers("Photo saved to your gallery");
+        this.sendBroadcast(mediaScanIntent);
+    }
+    private File setUpPhotoFile() throws IOException {
+
+        File f = createImageFile();
+        mCurrentPhotoPath = f.getAbsolutePath();
+
+        return f;
+    }
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
+        File albumF = getAlbumDir();
+        File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
+        return imageF;
+    }
+    private File getAlbumDir() {
+        File storageDir = null;
+
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+
+            storageDir = mAlbumStorageDirFactory.getAlbumStorageDir(getAlbumName());
+            //Cheers(storageDir.getAbsolutePath());
+            if (storageDir != null) {
+                if (! storageDir.mkdirs()) {
+                    if (! storageDir.exists()){
+                        Log.d("CameraSample", "failed to create directory");
+                        Cheers("Cannot create directory");
+                        return null;
+                    }
+                }
+            }
+
+        } else {
+            Log.v(getString(R.string.app_name), "External storage is not mounted READ/WRITE.");
+            Cheers("Cannot READ/WRITE to external storage.");
+        }
+
+        return storageDir;
+    }
+    private String getAlbumName() {
+        return "SAC2014";
+    }
+    /** Upload Image Framework **/
+    public void performFileSearch() {
+
+        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
+        // browser.
+        Intent intent;
+        if(android.os.Build.VERSION.SDK_INT >= 19) {
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("image/*");
+            // Filter to only show results that can be "opened", such as a
+            // file (as opposed to a list of contacts or timezones)
+
+
+            // Filter to show only images, using the image MIME data type.
+            // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
+            // To search for all documents available via installed storage providers,
+            // it would be "*/*".
+            try {
+                startActivityForResult(intent, READ_REQUEST_CODE);
+            } catch(Exception e) {
+                Cheers(e.getMessage());
+            }
+        } else {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(intent,PICKFILE_RESULT_CODE);
+        }
+
+
     }
 
     /* The click listner for ListView in the navigation drawer */
@@ -205,7 +458,10 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private void selectItem(int position) {
+    private void selectItem(int p) {
+        int position = 0;
+        if(p > 0)
+            position = p - 1;
         // update the main content by replacing fragments
         android.app.Fragment fragment = new PlanetFragment();
         Bundle args = new Bundle();
@@ -277,12 +533,12 @@ public class MainActivity extends ActionBarActivity {
     public void setTitle(CharSequence title) {
         mTitle = title;
         getActionBar().setTitle(mTitle);
-       // Cheers(title+" "+mTitle);
+        // Cheers(title+" "+mTitle);
     }
 
     public void refreshDrawerContents() {
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-         R.layout.drawer_list_item, mPlanetTitles));
+                R.layout.drawer_list_item, mPlanetTitles));
     }
 
     /**
@@ -333,6 +589,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onActivityResult(
             int requestCode, int resultCode, Intent data) {
         // Decide what to do based on the original request code
+        Cheers(String.valueOf(requestCode));
         switch (requestCode) {
             case CONNECTION_FAILURE_RESOLUTION_REQUEST :
             /*
@@ -344,14 +601,97 @@ public class MainActivity extends ActionBarActivity {
                     /*
                      * Try the request again
                      */
-                     break;
+                        break;
                 }
+             break;
+            case ACTION_TAKE_PHOTO_B: {
+                //Cheers(resultCode+" B");
+                if (resultCode == RESULT_OK) {
+                    handleBigCameraPhoto();
+
+                }
+                break;
+            } // ACTION_TAKE_PHOTO_B
+
+            case ACTION_TAKE_PHOTO_S: {
+                if (resultCode == RESULT_OK) {
+                    handleSmallCameraPhoto(data);
+                }
+                break;
+            } // switch
+            case READ_REQUEST_CODE:
+                //Cheers("Hello");
+                try {
+                    Uri uri = null;
+                    if (data != null) {
+                    uri = data.getData();
+                    //Log.i(TAG, "Uri: " + uri.toString());
+                    //showImage(uri);
+
+                    Intent upload = new Intent(this, UploadPhoto.class);
+
+                    //
+                    //
+                    Cheers(data.getData().getPath());
+                        upload.putExtra("path", uri);
+                    Cheers(data.getData().getHost());
+                        upload.putExtra("name", uri);
+                    Cheers("Chose image file "+uri+" from file storage. Sorry, this feature doesn't work yet.");
+
+                    startActivity(upload);
+
+                        }
+                } catch(Exception e) {
+                    Cheers(e.getMessage());
+                }
+            break;
+            /*case READ_REQUEST_CODE: {
+                Cheers("Data");
+                *//*try {
+                   Uri uri = null;
+                   *//**//*if (data != null) {
+                    uri = data.getData();
+                    //Log.i(TAG, "Uri: " + uri.toString());
+                    //showImage(uri);
+
+                    //Intent upload = new Intent(this, UploadPhoto.class);
+
+                    //upload.putExtra("path", uri);
+                    //upload.putExtra("name", uri);
+                    Cheers(data.getData().getPath());
+                    Cheers(data.getData().getHost());
+                    Cheers("Chose image file "+uri+" from file storage. Sorry, this feature doesn't work yet.");
+
+                        //startActivity(upload);
+
+                }*//**//*
+                    } catch(Exception e) {
+                        Cheers(e.getMessage());
+                    }*//*
+
+            }
+*/            case PICKFILE_RESULT_CODE:
+                Cheers(String.valueOf(READ_REQUEST_CODE));
+                if(resultCode==RESULT_OK){
+                    String FilePath = String.valueOf(data.getData());
+                    Intent upload = new Intent(this, UploadPhoto.class);
+                    upload.putExtra("path", FilePath);
+                    upload.putExtra("name", FilePath);
+                    Cheers("Chose image file "+FilePath+" from content getter. Sorry, this feature doesn't work yet.");
+                    Cheers(data.getData().getPath());
+                    Cheers(data.getData().getHost());
+                    startActivity(upload);
+                }
+                break;
+            default:
+                Cheers("Hi");
+            break;
         }
     }
     private boolean servicesConnected() {
         // Check that Google Play services is available
         int resultCode = GooglePlayServicesUtil.
-                        isGooglePlayServicesAvailable(this);
+                isGooglePlayServicesAvailable(this);
         // If Google Play services is available
         if (ConnectionResult.SUCCESS == resultCode) {
             // In debug mode, log the status
@@ -379,19 +719,19 @@ public class MainActivity extends ActionBarActivity {
                 R.drawable.note);
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         MediaPlayer mp = new MediaPlayer();
-                mp.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
+        mp.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
         NotificationCompat.Builder mBuilder =
-            new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.drawable.note_icon)
-                    .setContentTitle("SAC Hint")
-                    .setLargeIcon(icon)
-                    .setWhen(System.currentTimeMillis()/* + 1000 * 60 * 30*/)
-                    .setContentText(event + " - 30 minutes")
-                    .setSound(soundUri);
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.note_icon)
+                        .setContentTitle("SAC Hint")
+                        .setLargeIcon(icon)
+                        .setWhen(System.currentTimeMillis()/* + 1000 * 60 * 30*/)
+                        .setContentText(event + " - 30 minutes")
+                        .setSound(soundUri);
         // Creates an explicit intent for an Activity in your app
-    Intent resultIntent = new Intent(this, MainActivity.class);
+        Intent resultIntent = new Intent(this, MainActivity.class);
 
-    //Make BIG notifications
+        //Make BIG notifications
         NotificationCompat.InboxStyle inboxStyle =
                 new NotificationCompat.InboxStyle();
         inboxStyle.setBigContentTitle("SAC Hint");
@@ -400,25 +740,25 @@ public class MainActivity extends ActionBarActivity {
         inboxStyle.addLine("Please make sure you are on the bus and ready in time.");
         mBuilder.setStyle(inboxStyle);
 
-    // The stack builder object will contain an artificial back stack for the
+        // The stack builder object will contain an artificial back stack for the
 // started Activity.
 // This ensures that navigating backward from the Activity leads out of
 // your application to the Home screen.
-    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 // Adds the back stack for the Intent (but not the Intent itself)
-    stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addParentStack(MainActivity.class);
 // Adds the Intent that starts the Activity to the top of the stack
-    stackBuilder.addNextIntent(resultIntent);
-    PendingIntent resultPendingIntent =
-            stackBuilder.getPendingIntent(
-                    0,
-                    PendingIntent.FLAG_UPDATE_CURRENT
-            );
-    mBuilder.setContentIntent(resultPendingIntent);
-    NotificationManager mNotificationManager =
-            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-    // mId allows you to update the notification later on.
-    mNotificationManager.notify(mId, mBuilder.build());
- }
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(mId, mBuilder.build());
+    }
 
 }

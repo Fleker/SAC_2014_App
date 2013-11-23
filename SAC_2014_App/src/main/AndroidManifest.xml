@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <application>
+        <activity
+            android:name=".upload_photo"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_upload_photo"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name=".UploadPhoto"
+            android:label="@string/title_activity_upload_photo"
+            android:parentActivityName="MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+    </application>
+
+</manifest>
