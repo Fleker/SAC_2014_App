@@ -28,6 +28,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.database.Cursor;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 
@@ -437,7 +438,9 @@ public class MainActivity extends ActionBarActivity {
             // To search for all documents available via installed storage providers,
             // it would be "*/*".
             try {
-                startActivityForResult(intent, READ_REQUEST_CODE);
+                Cheers("starting READ_REQUEST_CODE");
+                Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, READ_REQUEST_CODE);
             } catch(Exception e) {
                 Cheers(e.getMessage());
             }
@@ -620,29 +623,25 @@ public class MainActivity extends ActionBarActivity {
                 break;
             } // switch
             case READ_REQUEST_CODE:
-                //Cheers("Hello");
-                try {
-                    Uri uri = null;
-                    if (data != null) {
-                    uri = data.getData();
-                    //Log.i(TAG, "Uri: " + uri.toString());
-                    //showImage(uri);
-
+                if(resultCode == RESULT_OK){
+                    Cheers("Matt!!!");
                     Intent upload = new Intent(this, UploadPhoto.class);
 
-                    //
-                    //
-                    Cheers(data.getData().getPath());
-                        upload.putExtra("path", uri);
-                    Cheers(data.getData().getHost());
-                        upload.putExtra("name", uri);
-                    Cheers("Chose image file "+uri+" from file storage. Sorry, this feature doesn't work yet.");
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
+                    Cursor cursor = getContentResolver().query(
+                            selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String FilePath = cursor.getString(columnIndex);
+                    cursor.close();
+
+                    upload.putExtra("path", FilePath);
+                    upload.putExtra("name", FilePath);
+                    Cheers(FilePath);
                     startActivity(upload);
-
-                        }
-                } catch(Exception e) {
-                    Cheers(e.getMessage());
                 }
             break;
             /*case READ_REQUEST_CODE: {
@@ -670,7 +669,8 @@ public class MainActivity extends ActionBarActivity {
                     }*//*
 
             }
-*/            case PICKFILE_RESULT_CODE:
+            */
+           case PICKFILE_RESULT_CODE:
                 Cheers(String.valueOf(READ_REQUEST_CODE));
                 if(resultCode==RESULT_OK){
                     String FilePath = String.valueOf(data.getData());

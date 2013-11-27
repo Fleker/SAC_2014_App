@@ -28,8 +28,8 @@ public class UploadPhoto extends Activity {
     String upLoadServerUri = null;
 
     /**********  File Path *************/
-    String uploadFilePath = "/mnt/sdcard/";
-    String uploadFileName = "service_lifecycle.png";
+    String uploadFilePath;
+    String uploadFileName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class UploadPhoto extends Activity {
         messageText.setText("Uploading file path :- '/mnt/sdcard/"+uploadFileName+"'");
 
         /************* Php script path ****************/
-        upLoadServerUri = "http://www.androidexample.com/media/UploadToServer.php";
+        upLoadServerUri = "http://www.xsorcreations.com/sac/appImageUpload.php";
 
         //Cheers("Hello");
         try {
@@ -53,6 +53,8 @@ public class UploadPhoto extends Activity {
             //Bundle extras = intent.getExtras();
             uploadFilePath = intent.getStringExtra("path");
             uploadFileName = intent.getStringExtra("name");
+
+           Cheers("Assigning name/path "+uploadFilePath);
             messageText.setText("Uploading\n"+uploadFilePath+" "+uploadFileName);
 
                 try {
@@ -66,7 +68,7 @@ public class UploadPhoto extends Activity {
                                 }
                             });
 
-                            uploadFile(uploadFilePath + "" + uploadFileName, uploadFileName);
+                            uploadFile(uploadFilePath, uploadFileName);
 
                         }
                     }).start();
@@ -87,7 +89,7 @@ public class UploadPhoto extends Activity {
     public int uploadFile(String sourceFileUri, String sourceFileName) {
 
 
-        String fileName = sourceFileName;
+        String fileName = sourceFileUri;
 
         HttpURLConnection conn = null;
         DataOutputStream dos = null;
