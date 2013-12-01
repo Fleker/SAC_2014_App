@@ -179,7 +179,11 @@ public class MainActivity extends ActionBarActivity {
 
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if (type.startsWith("image/")) {
-                handleSendImage(intent); // Handle single image being sent
+                try {
+                    handleSendImage(intent); // Handle single image being sent
+                } catch(Exception e) {
+                    Cheers(e.getMessage());
+                }
             }
         } else { /* Launched directly */
             myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/?app=1");
@@ -197,15 +201,44 @@ public class MainActivity extends ActionBarActivity {
          layout.setBackground(background);**/
         //findViewById(R.id.left_drawer).getBackground().setAlpha(160);
     }
-    void handleSendImage(Intent intent) {
-        Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-        Cheers("You wish to share "+imageUri+". This function isn't complete yet. Please try again later.");
+    void handleSendImage(Intent data) {
+        Uri imageUri = (Uri) data.getParcelableExtra(Intent.EXTRA_STREAM);
+        String imagePath = getRealPathFromURI(getApplicationContext(), imageUri);
+        //Cheers("You wish to share "+imagePath+". This function isn't complete yet. Please try again later.");
         if (imageUri != null) {
             // Update UI to reflect image being shared
+
             Intent upload = new Intent(this, UploadPhoto.class);
-            upload.putExtra("path", imageUri);
-            upload.putExtra("name", imageUri);
+
+            /*Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getContentResolver().query(
+                    selectedImage, filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String FilePath = cursor.getString(columnIndex);
+            cursor.close();
+            */
+            upload.putExtra("path", imagePath);
+            upload.putExtra("name", imagePath);
+            //Cheers(imagePath);
             startActivity(upload);
+        }
+    }
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
     }
     @Override
@@ -438,7 +471,7 @@ public class MainActivity extends ActionBarActivity {
             // To search for all documents available via installed storage providers,
             // it would be "*/*".
             try {
-                Cheers("starting READ_REQUEST_CODE");
+                //Cheers("starting READ_REQUEST_CODE");
                 Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, READ_REQUEST_CODE);
             } catch(Exception e) {
@@ -592,7 +625,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onActivityResult(
             int requestCode, int resultCode, Intent data) {
         // Decide what to do based on the original request code
-        Cheers(String.valueOf(requestCode));
+        //Cheers(String.valueOf(requestCode));
         switch (requestCode) {
             case CONNECTION_FAILURE_RESOLUTION_REQUEST :
             /*
@@ -624,7 +657,6 @@ public class MainActivity extends ActionBarActivity {
             } // switch
             case READ_REQUEST_CODE:
                 if(resultCode == RESULT_OK){
-                    Cheers("Matt!!!");
                     Intent upload = new Intent(this, UploadPhoto.class);
 
                     Uri selectedImage = data.getData();
@@ -640,7 +672,7 @@ public class MainActivity extends ActionBarActivity {
 
                     upload.putExtra("path", FilePath);
                     upload.putExtra("name", FilePath);
-                    Cheers(FilePath);
+                    //Cheers(FilePath);
                     startActivity(upload);
                 }
             break;
@@ -671,7 +703,7 @@ public class MainActivity extends ActionBarActivity {
             }
             */
            case PICKFILE_RESULT_CODE:
-                Cheers(String.valueOf(READ_REQUEST_CODE));
+                //Cheers(String.valueOf(READ_REQUEST_CODE));
                 if(resultCode==RESULT_OK){
                     String FilePath = String.valueOf(data.getData());
                     Intent upload = new Intent(this, UploadPhoto.class);

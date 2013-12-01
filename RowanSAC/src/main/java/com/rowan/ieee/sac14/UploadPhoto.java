@@ -6,22 +6,31 @@ package com.rowan.ieee.sac14;
         import java.net.HttpURLConnection;
         import java.net.MalformedURLException;
         import java.net.URL;
+
+        import android.annotation.SuppressLint;
         import android.app.Activity;
         import android.app.ProgressDialog;
         import android.content.Intent;
         import android.graphics.Bitmap;
+        import android.net.Uri;
         import android.os.Bundle;
+        import android.text.Editable;
+        import android.text.TextWatcher;
         import android.util.Log;
+        import android.view.KeyEvent;
         import android.view.View;
         import android.view.View.OnClickListener;
         import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.ImageButton;
+        import android.widget.ImageView;
         import android.widget.TextView;
         import android.widget.Toast;
 
 public class UploadPhoto extends Activity {
 
     TextView messageText;
-    //Button uploadButton;
+    EditText caption;
     int serverResponseCode = 0;
     ProgressDialog dialog = null;
 
@@ -30,6 +39,7 @@ public class UploadPhoto extends Activity {
     /**********  File Path *************/
     String uploadFilePath;
     String uploadFileName;
+    String captiontext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +55,6 @@ public class UploadPhoto extends Activity {
         upLoadServerUri = "http://www.xsorcreations.com/sac/appImageUpload.php";
 
         //Cheers("Hello");
-        try {
         Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
@@ -53,40 +62,95 @@ public class UploadPhoto extends Activity {
             //Bundle extras = intent.getExtras();
             uploadFilePath = intent.getStringExtra("path");
             uploadFileName = intent.getStringExtra("name");
+            uploadFileName = uploadFileName.split("/")[uploadFileName.split("/").length-1];
 
-           Cheers("Assigning name/path "+uploadFilePath);
-            messageText.setText("Uploading\n"+uploadFilePath+" "+uploadFileName);
+           // Cheers("Assigning name/path "+uploadFilePath);
+            messageText.setText("Chosen\n"+uploadFilePath+" "+uploadFileName);
+            ImageView img = (ImageView) findViewById(R.id.upload_photo_preview);
+            try {
+                img.setImageURI(Uri.parse(uploadFilePath));
+            } catch(Exception e) {
+                Cheers(e.getMessage());
+            }
+        }
+
+        final ImageButton uploadButton = (ImageButton) findViewById(R.id.upload_photo_button);
+
+        uploadButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+
+               // Cheers("Now we upload");
+               // Prevent future posts
+                uploadButton.setEnabled(false);
+                uploadButton.setVisibility(View.INVISIBLE);
 
                 try {
-                    dialog = ProgressDialog.show(UploadPhoto.this, "", "Uploading file...", true);
-
-                    new Thread(new Runnable() {
-                        public void run() {
-                            runOnUiThread(new Runnable() {
+                        try {
+                            dialog = ProgressDialog.show(UploadPhoto.this, "", "Uploading file...", true);
+                            caption = (EditText) findViewById(R.id.upload_photo_caption);
+                            if(captiontext.length() > 200)
+                                captiontext = caption.getText().toString().substring(0,200);
+                            else
+                                captiontext = caption.getText().toString();
+                            new Thread(new Runnable() {
                                 public void run() {
-                                    messageText.setText("uploading started.....");
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            messageText.setText("Uploading started.....");
+                                        }
+                                    });
+                                    //captiontext.substring(0,200)
+                                    uploadFile(uploadFilePath, uploadFileName, captiontext);
+
                                 }
-                            });
-
-                            uploadFile(uploadFilePath, uploadFileName);
-
+                            }).start();
+                        } catch(Exception e) {
+                            dialog.dismiss();
+                            Cheers(e.getMessage());
                         }
-                    }).start();
+                        //c.Cheers("Upload Photo: "+uploadFilePath+" "+uploadFileName);
+
                 } catch(Exception e) {
                     Cheers(e.getMessage());
                 }
-            //c.Cheers("Upload Photo: "+uploadFilePath+" "+uploadFileName);
-        }
-        } catch(Exception e) {
-                Cheers(e.getMessage());
             }
+        });
+
+        final EditText caption = (EditText) findViewById(R.id.upload_photo_caption);
+        caption.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void afterTextChanged(Editable s) {
+                captiontext = caption.getText().toString();
+                TextView limit = (TextView) findViewById(R.id.upload_photo_limit);
+                //Integer ch = (200-s.length());
+                int ch = 200-s.length();
+                limit.setText(ch+"");
+                //Cheers(String.valueOf(limit.getCurrentTextColor()));
+                //Cheers(String.valueOf(ch > 20));
+                if(ch < 0) {
+                    limit.setTextColor(getResources().getColor(R.color.red));
+                } else {
+                    limit.setTextColor(getResources().getColor(R.color.rowanbrowndark));
+                }
+            }
+        });
 
     }
     private void Cheers(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
-
-    public int uploadFile(String sourceFileUri, String sourceFileName) {
+    public int uploadFile(String sourceFileUri, String sourceFileName, String caption) {
 
 
         String fileName = sourceFileUri;
@@ -136,6 +200,7 @@ public class UploadPhoto extends Activity {
                 conn.setRequestProperty("ENCTYPE", "multipart/form-data");
                 conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
                 conn.setRequestProperty("uploaded_file", fileName);
+                conn.setRequestProperty("caption", caption);
 
                 dos = new DataOutputStream(conn.getOutputStream());
 
@@ -179,7 +244,8 @@ public class UploadPhoto extends Activity {
                     runOnUiThread(new Runnable() {
                         public void run() {
 
-                            String msg = "File Upload Completed.\n\n Your photo will be approved and be public shortly.";
+                            String msg = "File Upload Completed.\n Your photo will be approved and be public shortly.\nView the photo at: "+
+                                    "http://xsorcreations.com/sac/imageuploads/"+uploadFileName;
 
                             messageText.setText(msg);
                             Toast.makeText(UploadPhoto.this, "File Upload Complete.",

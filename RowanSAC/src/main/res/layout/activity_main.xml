@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
-    android:paddingTop="80dp"
+    style="@style/activity_main_kk"
     android:paddingBottom="0dp"
     tools:context=".MainActivity">
 

@@ -2,10 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_marginTop="80dp"
+    style="@style/activity_upload_kk"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
-    android:paddingTop="0dp"
     android:paddingBottom="0dp"
     android:background="@android:color/white" >
     <!--<Button
@@ -14,16 +13,56 @@
         android:text="Click To Upload File"
         android:id="@+id/uploadButton"
         />-->
+    <ImageView
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:scaleType="centerInside"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/upload_photo_preview"
+        android:src="@drawable/ic_launcher"/>
+    <LinearLayout
+        android:layout_height="48dp"
+        android:layout_width="348dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="60dp"
+        android:id="@+id/linearLayout">
+        <EditText
+            android:layout_height="48dp"
+            android:layout_width="300dp"
+            android:id="@+id/upload_photo_caption"/>
 
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/upload_photo_button"
+            android:layout_alignBottom="@+id/linearLayout"
+            android:layout_toRightOf="@+id/linearLayout"
+            android:cropToPadding="false"
+            android:src="@android:drawable/ic_menu_upload"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+    <TextView
+        android:layout_height="24dp"
+        android:layout_width="match_parent"
+        android:id="@+id/upload_photo_limit"
+        android:text="200"
+        android:layout_marginTop="108dp"
+        android:textSize="9sp"
+        android:layout_marginLeft="40dp"
+        />
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="120dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp"
         android:text="Hello"
         android:textSize="28dp"
         android:fontFamily="sans-serif-thin"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:id="@+id/messageText"
         android:textColor="#000000"
         android:textStyle="bold"
-        />
+        android:paddingTop="60dp" />
+
+
+
 </RelativeLayout>

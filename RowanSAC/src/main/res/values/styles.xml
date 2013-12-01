@@ -6,9 +6,13 @@
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:actionBarWidgetTheme">@style/Theme.stylingactionbar.widget</item>
-        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowBackground">@color/rowanbrown</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+    <style name="activity_main_kk">
+        <item name="android:paddingTop">0dp</item>
+    </style>
+    <style name="activity_upload_kk">
+        <item name="android:layout_marginTop">0dp</item>
     </style>
 
     <style name="MyActionBar"
