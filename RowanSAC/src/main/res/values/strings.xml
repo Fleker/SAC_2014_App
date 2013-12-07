@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="drawer_open">Open Drawer</string>
     <string name="drawer_close">Close Drawer</string>
+    <string name="photovoid">This photo can\'t be uploaded.</string>
 
 </resources>

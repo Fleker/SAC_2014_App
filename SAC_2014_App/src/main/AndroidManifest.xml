@@ -16,6 +16,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
         </activity>
+        <activity
+            android:name=".CameraPro"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_camera_pro"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
     </application>
 
 </manifest>

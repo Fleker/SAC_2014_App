@@ -8,12 +8,17 @@
         android:visible="true"
         android:orderInCategory="100"
         android:title="Camera" />
-
+    <item android:id="@+id/action_camera_pro"
+        android:title="Experimental Camera"
+        android:orderInCategory="99"
+        android:showAsAction="always|withText"
+        android:visible="true"
+        android:icon="@android:drawable/ic_menu_slideshow" />
     <item android:id="@+id/action_upload"
         android:icon="@android:drawable/ic_menu_upload"
         android:showAsAction="always|withText"
         android:orderInCategory="100"
-        android:visible="true"
+        android:visible="false"
         app:showAsAction="always|withText"
         android:title="Upload" />
 

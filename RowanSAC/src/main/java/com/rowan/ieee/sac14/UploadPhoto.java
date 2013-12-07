@@ -12,12 +12,14 @@ package com.rowan.ieee.sac14;
         import android.app.ProgressDialog;
         import android.content.Intent;
         import android.graphics.Bitmap;
+        import android.media.ExifInterface;
         import android.net.Uri;
         import android.os.Bundle;
         import android.text.Editable;
         import android.text.TextWatcher;
         import android.util.Log;
         import android.view.KeyEvent;
+        import android.view.MotionEvent;
         import android.view.View;
         import android.view.View.OnClickListener;
         import android.widget.Button;
@@ -39,7 +41,7 @@ public class UploadPhoto extends Activity {
     /**********  File Path *************/
     String uploadFilePath;
     String uploadFileName;
-    String captiontext;
+    String captiontext = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class UploadPhoto extends Activity {
         messageText.setText("Uploading file path :- '/mnt/sdcard/"+uploadFileName+"'");
 
         /************* Php script path ****************/
-        upLoadServerUri = "http://www.xsorcreations.com/sac/appImageUpload.php";
+        upLoadServerUri = "http://www.rowan.edu/clubs/ieee/sac/app/appImageUpload.php";
 
         //Cheers("Hello");
         Intent intent = getIntent();
@@ -65,7 +67,8 @@ public class UploadPhoto extends Activity {
             uploadFileName = uploadFileName.split("/")[uploadFileName.split("/").length-1];
 
            // Cheers("Assigning name/path "+uploadFilePath);
-            messageText.setText("Chosen\n"+uploadFilePath+" "+uploadFileName);
+            //messageText.setText("Chosen\n"+uploadFilePath+" "+uploadFileName);
+            messageText.setText("Add a Caption");
             ImageView img = (ImageView) findViewById(R.id.upload_photo_preview);
             try {
                 img.setImageURI(Uri.parse(uploadFilePath));
@@ -73,6 +76,26 @@ public class UploadPhoto extends Activity {
                 Cheers(e.getMessage());
             }
         }
+        final ImageView preview = (ImageView) findViewById(R.id.upload_photo_preview);
+        //If we click on the preview, we want it to open up the image picker again
+            preview.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                    main.putExtra("reupload", "100");
+                    startActivity(main);
+                }
+            });
+            preview.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if(event.getAction() == MotionEvent.ACTION_DOWN)
+                        preview.setBackgroundColor(getResources().getColor(R.color.gray));
+                    else if(event.getAction() == MotionEvent.ACTION_UP)
+                        preview.setBackgroundColor(getResources().getColor(R.color.white));
+                    return false;
+                }
+            });
 
         final ImageButton uploadButton = (ImageButton) findViewById(R.id.upload_photo_button);
 
@@ -92,6 +115,11 @@ public class UploadPhoto extends Activity {
                                 captiontext = caption.getText().toString().substring(0,200);
                             else
                                 captiontext = caption.getText().toString();
+
+                            ExifInterface exif = new ExifInterface(uploadFilePath);
+                            exif.setAttribute(ExifInterface.TAG_MODEL, captiontext);
+                            exif.saveAttributes();
+
                             new Thread(new Runnable() {
                                 public void run() {
                                     runOnUiThread(new Runnable() {
@@ -104,8 +132,21 @@ public class UploadPhoto extends Activity {
 
                                 }
                             }).start();
+
                         } catch(Exception e) {
-                            dialog.dismiss();
+                            dialog = ProgressDialog.show(UploadPhoto.this, "", "Uploading file...", true);
+                            new Thread(new Runnable() {
+                                public void run() {
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            messageText.setText("Uploading started.....");
+                                        }
+                                    });
+                                    //captiontext.substring(0,200)
+                                    uploadFile(uploadFilePath, uploadFileName, " ");
+
+                                }
+                            }).start();
                             Cheers(e.getMessage());
                         }
                         //c.Cheers("Upload Photo: "+uploadFilePath+" "+uploadFileName);
@@ -234,7 +275,7 @@ public class UploadPhoto extends Activity {
 
                 // Responses from the server (code and message)
                 serverResponseCode = conn.getResponseCode();
-                String serverResponseMessage = conn.getResponseMessage();
+                final String serverResponseMessage = conn.getResponseMessage();
 
                 Log.i("uploadFile", "HTTP Response is : "
                         + serverResponseMessage + ": " + serverResponseCode);
@@ -244,14 +285,17 @@ public class UploadPhoto extends Activity {
                     runOnUiThread(new Runnable() {
                         public void run() {
 
-                            String msg = "File Upload Completed.\n Your photo will be approved and be public shortly.\nView the photo at: "+
-                                    "http://xsorcreations.com/sac/imageuploads/"+uploadFileName;
+                            /*String msg = "File Upload Completed.\n Your photo will be approved and be public shortly.\nView the photo at: "+
+                                    "http://xsorcreations.com/sac/imageuploads/"+uploadFileName;*/
+                            String msg = "Res 200: "+serverResponseMessage;
 
                             messageText.setText(msg);
                             Toast.makeText(UploadPhoto.this, "File Upload Complete.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     });
+                } else {
+                    messageText.setText("Got response "+serverResponseCode);
                 }
 
                 //close the streams //

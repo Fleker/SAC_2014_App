@@ -21,6 +21,13 @@
         <item name="android:textColor">#B79B75</item>
     </style>
 
+    <style name="gallery_camera_style"
+        parent="android:Theme.Dialog">
+
+        <item name="android:textColor">@color/rowanbrowndark</item>
+
+    </style>
+
     <style name="settings"
         parent="android:Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/MyActionBar</item>

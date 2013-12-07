@@ -16,6 +16,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
@@ -44,6 +45,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
@@ -53,6 +55,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -102,6 +105,8 @@ public class MainActivity extends ActionBarActivity {
 
     private AlbumStorageDirFactory mAlbumStorageDirFactory = null;
 
+    public static final String defaulturl = "http://rowan.edu/clubs/ieee/sac/?app=1";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +151,7 @@ public class MainActivity extends ActionBarActivity {
                 R.string.drawer_close  /* "close drawer" description for accessibility */
         ) {
             public void onDrawerClosed(View view) {
-                //getActionBar().setTitle(mTitle);
+                getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
@@ -185,8 +190,11 @@ public class MainActivity extends ActionBarActivity {
                     Cheers(e.getMessage());
                 }
             }
+        } else if(intent.getStringExtra("reupload") != null) {
+            performFileSearch();
+            myWebView.loadUrl(defaulturl);
         } else { /* Launched directly */
-            myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/?app=1");
+            myWebView.loadUrl(defaulturl);
         }
 
 
@@ -202,30 +210,38 @@ public class MainActivity extends ActionBarActivity {
         //findViewById(R.id.left_drawer).getBackground().setAlpha(160);
     }
     void handleSendImage(Intent data) {
+        //Cheers("Intent");
         Uri imageUri = (Uri) data.getParcelableExtra(Intent.EXTRA_STREAM);
         String imagePath = getRealPathFromURI(getApplicationContext(), imageUri);
+
         //Cheers("You wish to share "+imagePath+". This function isn't complete yet. Please try again later.");
-        if (imageUri != null) {
-            // Update UI to reflect image being shared
+        try {
+            if (imageUri != null) {
+                // Update UI to reflect image being shared
 
-            Intent upload = new Intent(this, UploadPhoto.class);
+                Intent upload = new Intent(this, UploadPhoto.class);
 
-            /*Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-            Cursor cursor = getContentResolver().query(
-                    selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String FilePath = cursor.getString(columnIndex);
-            cursor.close();
-            */
-            upload.putExtra("path", imagePath);
-            upload.putExtra("name", imagePath);
-            //Cheers(imagePath);
-            startActivity(upload);
+                upload.putExtra("path", imagePath);
+                upload.putExtra("name", imagePath);
+               // Cheers(imagePath);
+                try {
+                    if(imagePath.length() > 0)
+                        startActivity(upload);
+                    else {
+                        Cheers(getResources().getString(R.string.photovoid));
+                        onBackPressed();
+                    }
+                } catch(Exception e) {
+                    Cheers(getResources().getString(R.string.photovoid));
+                    onBackPressed();
+                }
+            }
+        } catch(Exception e) {
+            Cheers(getResources().getString(R.string.photovoid));
+            onBackPressed();
         }
+
+
     }
     public String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;
@@ -247,10 +263,18 @@ public class MainActivity extends ActionBarActivity {
         if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack() && !mDrawerLayout.isDrawerOpen(mDrawerList)) {
             myWebView.goBack();
             return true;
+        } else if(keyCode == KeyEvent.KEYCODE_BACK) {
+            onBackPressed();
         }
         // If it wasn't the Back key or there's no web page history, bubble up to the default
         // system behavior (probably exit the activity)
         return super.onKeyDown(keyCode, event);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //    finish();
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -286,17 +310,102 @@ public class MainActivity extends ActionBarActivity {
                 testNote("", "");
                 break;
             case R.id.action_camera:
-                if(isIntentAvailable(getApplicationContext(), MediaStore.ACTION_IMAGE_CAPTURE))
-                    dispatchTakePictureIntent(ACTION_TAKE_PHOTO_B);
-                else
-                    Cheers("Camera not available");
+                gallery_camera_dialog();
                 break;
             case R.id.action_upload:
-                performFileSearch();
+
                 break;
+            case R.id.action_camera_pro:
+                Cheers("Not for the faint of heart");
+                try {
+                Intent camerapro = new Intent(this, CameraPro.class);
+                startActivity(camerapro);
+                } catch(Exception e) {
+                    Cheers("Bad luck: "+e.getMessage());
+                }
+                /*try {
+                if (isIntentAvailable(getApplicationContext(), MediaStore.ACTION_IMAGE_CAPTURE)) {
+                    Cheers("It is experimental, after all.");
+                    //dispatchTakePictureIntent(ACTION_TAKE_PHOTO_B);
+                    Intent camerapro = new Intent(this, CameraPro.class);
+                    Cheers("Here's some advice:");
+                    if(getCameraInstance() != null) {
+                        Cheers("this will crash.");
+                        startActivity(camerapro);
+                    } else {
+                        Cheers("Cannot access camera");
+                    }
+                } else
+                    Cheers("Camera not available");
+                } catch(Exception e) {
+                    Cheers(e.getMessage());
+                }*/
+            break;
 
         }
         return super.onOptionsItemSelected(item);
+
+    }
+    /** A safe way to get an instance of the Camera object. */
+    public static Camera getCameraInstance(){
+        Camera c = null;
+        try {
+            c = Camera.open(); // attempt to get a Camera instance
+        }
+        catch (Exception e){
+            // Camera is not available (in use or does not exist)
+        }
+        return c; // returns null if camera is unavailable
+    }
+    public void gallery_camera_dialog() {
+        // TODO Auto-generated method stub
+        final Dialog custom = new Dialog(MainActivity.this);
+        custom.setContentView(R.layout.gallery_camera);
+        final LinearLayout openCam = (LinearLayout) custom.findViewById(R.id.camera);
+        final LinearLayout openGal = (LinearLayout) custom.findViewById(R.id.gallery);
+        custom.setTitle("Choose Source");
+        openCam.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN)
+                    openCam.setBackgroundColor(getResources().getColor(R.color.gray));
+                else if(event.getAction() == MotionEvent.ACTION_UP)
+                    openCam.setBackgroundColor(getResources().getColor(R.color.white));
+                return false;
+            }
+        });
+        openCam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (isIntentAvailable(getApplicationContext(), MediaStore.ACTION_IMAGE_CAPTURE))
+                    dispatchTakePictureIntent(ACTION_TAKE_PHOTO_B);
+                else
+                    Cheers("Camera not available");
+                custom.dismiss();
+            }
+
+        });
+        openGal.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN)
+                    openGal.setBackgroundColor(getResources().getColor(R.color.gray));
+                else if(event.getAction() == MotionEvent.ACTION_UP)
+                    openGal.setBackgroundColor(getResources().getColor(R.color.white));
+                return false;
+            }
+        });
+        openGal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGal.setBackgroundColor(R.color.gray);
+                performFileSearch();
+                custom.dismiss();
+            }
+
+        });
+        custom.show();
 
     }
      /*
@@ -408,6 +517,13 @@ public class MainActivity extends ActionBarActivity {
 
         mediaScanIntent.setData(contentUri);
         Cheers("Photo saved to your gallery");
+        /** Go to upload manager **/
+        Intent upload = new Intent(this, UploadPhoto.class);
+        upload.putExtra("path", mCurrentPhotoPath);
+        upload.putExtra("name", mCurrentPhotoPath);
+        Cheers(mCurrentPhotoPath);
+        startActivity(upload);
+       // Cheers(contentUri.toString());
         this.sendBroadcast(mediaScanIntent);
     }
     private File setUpPhotoFile() throws IOException {
@@ -458,7 +574,7 @@ public class MainActivity extends ActionBarActivity {
         // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
         // browser.
         Intent intent;
-        if(android.os.Build.VERSION.SDK_INT >= 19) {
+        if(android.os.Build.VERSION.SDK_INT >= 19 && true) {
             intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("image/*");
@@ -568,7 +684,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getActionBar().setTitle(mTitle);
+       getActionBar().setTitle(mTitle);
         // Cheers(title+" "+mTitle);
     }
 
@@ -657,23 +773,41 @@ public class MainActivity extends ActionBarActivity {
             } // switch
             case READ_REQUEST_CODE:
                 if(resultCode == RESULT_OK){
-                    Intent upload = new Intent(this, UploadPhoto.class);
+                    try {
+                        Intent upload = new Intent(this, UploadPhoto.class);
 
-                    Uri selectedImage = data.getData();
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        Uri selectedImage = data.getData();
+                        //Cheers(selectedImage.toString());
+                        try {
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-                    Cursor cursor = getContentResolver().query(
-                            selectedImage, filePathColumn, null, null, null);
-                    cursor.moveToFirst();
+                        Cursor cursor = getContentResolver().query(
+                                selectedImage, filePathColumn, null, null, null);
+                        cursor.moveToFirst();
 
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String FilePath = cursor.getString(columnIndex);
-                    cursor.close();
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        String FilePath = cursor.getString(columnIndex);
+                        cursor.close();
+                            upload.putExtra("path", FilePath);
+                            upload.putExtra("name", FilePath);
+                            //Cheers(selectedImage.toString());
+                            //Cheers(FilePath);
+                            try {
+                                if(FilePath.length() > 0)
+                                    startActivity(upload);
+                                else
+                                    Cheers(getResources().getString(R.string.photovoid));
+                            } catch(Exception e) {
+                                Cheers(getResources().getString(R.string.photovoid));
+                            }
+                        } catch(Exception e) {
+                            Cheers(getResources().getString(R.string.photovoid));
+                        }
 
-                    upload.putExtra("path", FilePath);
-                    upload.putExtra("name", FilePath);
-                    //Cheers(FilePath);
-                    startActivity(upload);
+
+                    } catch(Exception e) {
+                        Cheers(getResources().getString(R.string.photovoid));
+                    }
                 }
             break;
             /*case READ_REQUEST_CODE: {
