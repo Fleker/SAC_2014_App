@@ -82,7 +82,7 @@
     </breakpoint_any>
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/MainActivity.java" line="774" class="com.rowan.ieee.sac14.MainActivity" package="com.rowan.ieee.sac14">
+      <breakpoint url="file://$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/MainActivity.java" line="768" class="com.rowan.ieee.sac14.MainActivity" package="com.rowan.ieee.sac14">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -110,19 +110,28 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="323" column="54" selection-start="12676" selection-end="12676" vertical-scroll-proportion="0.0" vertical-offset="4029" max-vertical-offset="14535">
+            <state line="377" column="51" selection-start="14800" selection-end="14811" vertical-scroll-proportion="-13.28" vertical-offset="4751" max-vertical-offset="14433">
               <folding>
-                <element signature="e#5736#5756#0" expanded="true" />
-                <element signature="e#5825#5846#0" expanded="true" />
-                <element signature="e#9155#9199#0" expanded="true" />
-                <element signature="e#9331#9375#0" expanded="true" />
-                <element signature="e#9497#9541#0" expanded="true" />
-                <element signature="e#21801#21829#0" expanded="true" />
-                <element signature="e#30997#31041#0" expanded="true" />
-                <element signature="e#31134#31178#0" expanded="true" />
-                <element signature="e#31293#31337#0" expanded="true" />
-                <element signature="e#31442#31486#0" expanded="true" />
+                <element signature="e#5784#5804#0" expanded="true" />
+                <element signature="e#5873#5894#0" expanded="true" />
+                <element signature="e#9203#9247#0" expanded="true" />
+                <element signature="e#9379#9423#0" expanded="true" />
+                <element signature="e#9545#9589#0" expanded="true" />
+                <element signature="e#21051#21079#0" expanded="true" />
+                <element signature="e#30447#30491#0" expanded="true" />
+                <element signature="e#30584#30628#0" expanded="true" />
+                <element signature="e#30743#30787#0" expanded="true" />
+                <element signature="e#30892#30936#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="arrays.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/values/arrays.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="17" selection-start="562" selection-end="562" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -130,10 +139,8 @@
       <file leaf-file-name="main.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/menu/main.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="29" selection-start="599" selection-end="599" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
-              <folding>
-                <element signature="e#1022#1047#0" expanded="true" />
-              </folding>
+            <state line="32" column="37" selection-start="1279" selection-end="1279" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,16 +148,16 @@
       <file leaf-file-name="CameraPreview.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/CameraPreview.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="21" selection-start="2249" selection-end="2249" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1258">
+            <state line="70" column="21" selection-start="2249" selection-end="2249" vertical-scroll-proportion="0.0" vertical-offset="1190" max-vertical-offset="1360">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="39" selection-start="2463" selection-end="2463" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1173">
+            <state line="18" column="0" selection-start="867" selection-end="867" vertical-scroll-proportion="0.54448396" vertical-offset="0" max-vertical-offset="1173">
               <folding />
             </state>
           </provider>
@@ -159,21 +166,19 @@
       <file leaf-file-name="CameraPro.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/CameraPro.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="0" selection-start="870" selection-end="870" vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="3961">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="31" column="0" selection-start="870" selection-end="870" vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="4182">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="camera_pro.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="camera_pro.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/layout/camera_pro.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="33" selection-start="468" selection-end="468" vertical-scroll-proportion="-1.4099617" vertical-offset="940" max-vertical-offset="1462">
+            <state line="80" column="15" selection-start="2915" selection-end="2915" vertical-scroll-proportion="-22.48" vertical-offset="798" max-vertical-offset="1462">
               <folding />
             </state>
           </provider>
@@ -185,19 +190,19 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="39" selection-start="839" selection-end="839" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1751">
+            <state line="16" column="38" selection-start="623" selection-end="623" vertical-scroll-proportion="-10.88" vertical-offset="0" max-vertical-offset="1768">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gallery_camera.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/layout/gallery_camera.xml">
+      <file leaf-file-name="activity_upload_photo.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/layout-land/activity_upload_photo.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="42" selection-start="2077" selection-end="2077" vertical-scroll-proportion="-15.36" vertical-offset="534" max-vertical-offset="1071">
+            <state line="31" column="17" selection-start="1177" selection-end="1177" vertical-scroll-proportion="-8.04" vertical-offset="326" max-vertical-offset="1989">
               <folding />
             </state>
           </provider>
@@ -206,7 +211,7 @@
       <file leaf-file-name="UploadPhoto.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/UploadPhoto.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="31" selection-start="3726" selection-end="3726" vertical-scroll-proportion="0.0" vertical-offset="1054" max-vertical-offset="4998">
+            <state line="294" column="44" selection-start="12204" selection-end="12204" vertical-scroll-proportion="0.0" vertical-offset="3888" max-vertical-offset="5117">
               <folding />
             </state>
           </provider>
@@ -590,22 +595,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/SAC_2014_App.iml" />
-        <option value="$PROJECT_DIR$/RowanSAC/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/RowanSAC/src/main/res/values-v19/styles.xml" />
         <option value="$PROJECT_DIR$/RowanSAC/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/RowanSAC/src/main/res/layout/drawer_list_item.xml" />
         <option value="$PROJECT_DIR$/RowanSAC/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/RowanSAC/src/main/res/layout/gallery_camera.xml" />
-        <option value="$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/UploadPhoto.java" />
-        <option value="$PROJECT_DIR$/RowanSAC/src/main/res/layout/activity_upload_photo.xml" />
         <option value="$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/CameraPreview.java" />
-        <option value="$PROJECT_DIR$/RowanSAC/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/RowanSAC/src/main/res/layout/camera_pro_ui.xml" />
-        <option value="$PROJECT_DIR$/RowanSAC/src/main/res/menu/main.xml" />
-        <option value="$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/MainActivity.java" />
         <option value="$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/CameraPro.java" />
         <option value="$PROJECT_DIR$/RowanSAC/src/main/res/layout/camera_pro.xml" />
+        <option value="$PROJECT_DIR$/RowanSAC/src/main/res/menu/main.xml" />
+        <option value="$PROJECT_DIR$/RowanSAC/src/main/res/values/arrays.xml" />
+        <option value="$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/UploadPhoto.java" />
+        <option value="$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/MainActivity.java" />
+        <option value="$PROJECT_DIR$/RowanSAC/src/main/res/layout/activity_upload_photo.xml" />
+        <option value="$PROJECT_DIR$/RowanSAC/src/main/res/layout-land/activity_upload_photo.xml" />
+        <option value="$PROJECT_DIR$/RowanSAC/src/main/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -663,6 +668,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -847,7 +854,67 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RowanSAC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SAC_2014_App" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RowanSAC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="menu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RowanSAC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SAC_2014_App" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RowanSAC" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout-land" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -913,8 +980,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1003,6 +1068,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -1028,19 +1106,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -1186,12 +1251,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32701063" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32701063" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3983051" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1206,7 +1271,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24962063" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24924242" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32936078" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
@@ -1222,13 +1287,13 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282313" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24924242" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1241,8 +1306,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32482994" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935154" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -1267,16 +1332,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/layout/drawer_list_item.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="24" selection-start="1014" selection-end="1014" vertical-scroll-proportion="-13.48" vertical-offset="88" max-vertical-offset="612">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/layout/fragment_upload.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -1301,21 +1356,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/layout/activity_upload_photo.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="39" selection-start="839" selection-end="839" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1751">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/android/app/Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3592" column="16" selection-start="153526" selection-end="153526" vertical-scroll-proportion="0.33333334" vertical-offset="59164" max-vertical-offset="91035">
-          <folding />
-        </state>
+        <state line="3592" column="16" selection-start="153526" selection-end="153526" vertical-scroll-proportion="0.33333334" vertical-offset="59164" max-vertical-offset="91035" />
       </provider>
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/platforms/android-19/data/res/drawable-ldpi/stat_notify_sdcard_usb.png">
@@ -1328,49 +1371,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="42" selection-start="2077" selection-end="2077" vertical-scroll-proportion="-15.36" vertical-offset="534" max-vertical-offset="1071">
+        <state line="54" column="42" selection-start="2077" selection-end="2077" vertical-scroll-proportion="0.0" vertical-offset="534" max-vertical-offset="1071">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="39" selection-start="2463" selection-end="2463" vertical-scroll-proportion="0.0" vertical-offset="611" max-vertical-offset="1173">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/UploadPhoto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="31" selection-start="3726" selection-end="3726" vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="5236">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/menu/main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="29" selection-start="599" selection-end="599" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
-          <folding>
-            <element signature="e#1022#1047#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="323" column="54" selection-start="12676" selection-end="12676" vertical-scroll-proportion="0.0" vertical-offset="4029" max-vertical-offset="14535">
-          <folding>
-            <element signature="e#5736#5756#0" expanded="true" />
-            <element signature="e#5825#5846#0" expanded="true" />
-            <element signature="e#9155#9199#0" expanded="true" />
-            <element signature="e#9331#9375#0" expanded="true" />
-            <element signature="e#9497#9541#0" expanded="true" />
-            <element signature="e#21801#21829#0" expanded="true" />
-            <element signature="e#30997#31041#0" expanded="true" />
-            <element signature="e#31134#31178#0" expanded="true" />
-            <element signature="e#31293#31337#0" expanded="true" />
-            <element signature="e#31442#31486#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1384,9 +1386,7 @@
     <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/CameraPro.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="31" column="0" selection-start="870" selection-end="870" vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="3961">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1395,7 +1395,73 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="33" selection-start="468" selection-end="468" vertical-scroll-proportion="-1.4099617" vertical-offset="940" max-vertical-offset="1462">
+        <state line="80" column="15" selection-start="2915" selection-end="2915" vertical-scroll-proportion="-22.48" vertical-offset="798" max-vertical-offset="1462">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/menu/main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="37" selection-start="1279" selection-end="1279" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/values/arrays.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="17" selection-start="562" selection-end="562" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/UploadPhoto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="294" column="44" selection-start="12204" selection-end="12204" vertical-scroll-proportion="0.0" vertical-offset="3888" max-vertical-offset="5117">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/java/com/rowan/ieee/sac14/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="377" column="51" selection-start="14800" selection-end="14811" vertical-scroll-proportion="-13.28" vertical-offset="4751" max-vertical-offset="14433">
+          <folding>
+            <element signature="e#5784#5804#0" expanded="true" />
+            <element signature="e#5873#5894#0" expanded="true" />
+            <element signature="e#9203#9247#0" expanded="true" />
+            <element signature="e#9379#9423#0" expanded="true" />
+            <element signature="e#9545#9589#0" expanded="true" />
+            <element signature="e#21051#21079#0" expanded="true" />
+            <element signature="e#30447#30491#0" expanded="true" />
+            <element signature="e#30584#30628#0" expanded="true" />
+            <element signature="e#30743#30787#0" expanded="true" />
+            <element signature="e#30892#30936#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/layout/activity_upload_photo.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="38" selection-start="623" selection-end="623" vertical-scroll-proportion="-10.88" vertical-offset="0" max-vertical-offset="1768">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/res/layout-land/activity_upload_photo.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="17" selection-start="1177" selection-end="1177" vertical-scroll-proportion="-8.04" vertical-offset="326" max-vertical-offset="1989">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RowanSAC/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="867" selection-end="867" vertical-scroll-proportion="0.54448396" vertical-offset="0" max-vertical-offset="1173">
           <folding />
         </state>
       </provider>

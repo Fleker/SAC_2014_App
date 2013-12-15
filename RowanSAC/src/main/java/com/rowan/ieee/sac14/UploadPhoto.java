@@ -292,6 +292,7 @@ public class UploadPhoto extends Activity {
                             messageText.setText(msg);
                             Toast.makeText(UploadPhoto.this, "File Upload Complete.",
                                     Toast.LENGTH_SHORT).show();
+                            onBackPressed();
                         }
                     });
                 } else {
@@ -336,5 +337,11 @@ public class UploadPhoto extends Activity {
             return serverResponseCode;
 
         } // End else block
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //    finish();
+
     }
 }

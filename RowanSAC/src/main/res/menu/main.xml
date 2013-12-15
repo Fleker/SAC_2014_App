@@ -8,7 +8,7 @@
         android:visible="true"
         android:orderInCategory="100"
         android:title="Camera" />
-    <item android:id="@+id/action_camera_pro"
+    <!--<item android:id="@+id/action_camera_pro"
         android:title="Experimental Camera"
         android:orderInCategory="99"
         android:showAsAction="always|withText"
@@ -30,6 +30,6 @@
     <item android:id="@+id/notify"
         android:title="Test Notification"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
 
 </menu>

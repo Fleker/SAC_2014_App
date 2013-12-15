@@ -36,6 +36,8 @@ import android.support.v4.app.Fragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.internal.b;
+
 import android.os.Bundle;
 import android.text.format.Time;
 import android.util.Log;
@@ -302,17 +304,18 @@ public class MainActivity extends ActionBarActivity {
         }
         // Handle action buttons
         switch(item.getItemId()) {
-            case R.id.action_settings:
+            /*case R.id.action_settings:
                 Intent i = new Intent(MainActivity.this, Settings.class);
                 startActivity(i);
                 break;
             case R.id.notify:
                 testNote("", "");
                 break;
+            */
             case R.id.action_camera:
                 gallery_camera_dialog();
                 break;
-            case R.id.action_upload:
+            /*case R.id.action_upload:
 
                 break;
             case R.id.action_camera_pro:
@@ -323,24 +326,7 @@ public class MainActivity extends ActionBarActivity {
                 } catch(Exception e) {
                     Cheers("Bad luck: "+e.getMessage());
                 }
-                /*try {
-                if (isIntentAvailable(getApplicationContext(), MediaStore.ACTION_IMAGE_CAPTURE)) {
-                    Cheers("It is experimental, after all.");
-                    //dispatchTakePictureIntent(ACTION_TAKE_PHOTO_B);
-                    Intent camerapro = new Intent(this, CameraPro.class);
-                    Cheers("Here's some advice:");
-                    if(getCameraInstance() != null) {
-                        Cheers("this will crash.");
-                        startActivity(camerapro);
-                    } else {
-                        Cheers("Cannot access camera");
-                    }
-                } else
-                    Cheers("Camera not available");
-                } catch(Exception e) {
-                    Cheers(e.getMessage());
-                }*/
-            break;
+            break;*/
 
         }
         return super.onOptionsItemSelected(item);
@@ -399,7 +385,7 @@ public class MainActivity extends ActionBarActivity {
         openGal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openGal.setBackgroundColor(R.color.gray);
+               // openGal.setBackgroundColor(R.color.gray);
                 performFileSearch();
                 custom.dismiss();
             }
@@ -631,6 +617,7 @@ public class MainActivity extends ActionBarActivity {
 
         //@TODO Load new webpage
         try {
+            String baseurl = "http://rowan.edu/clubs/ieee/sac/index.php?app=1";
             //Context
             if(true) {
                 mPlanetTitles[0] = "Now";
@@ -647,20 +634,27 @@ public class MainActivity extends ActionBarActivity {
                     //setTitle(mPlanetTitles[position]);
                     break;
                 case 1:
-                    myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/index.php?p=home&app=1");
+                    myWebView.loadUrl(baseurl+"&p=home");
                     break;
                 case 2:
-                    myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/index.php?p=competitions&app=1");
+                    myWebView.loadUrl(baseurl+"&p=competitions");
                     break;
                 case 3:
-                    myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/index.php?p=hotel&app=1");
+                    myWebView.loadUrl(baseurl+"&p=hotel");
                     break;
                 case 4:
-                    myWebView.loadUrl("http://rowan.edu/clubs/ieee/sac/index.php?p=schedule&app=1");
+                    myWebView.loadUrl(baseurl+"&p=schedule");
                     break;
                 case 5:
                     myWebView.loadUrl(fiveurl);
                     break;
+                case 6:
+                    myWebView.loadUrl(baseurl+"&p=login");
+                    break;
+                case 7:
+                    myWebView.loadUrl(baseurl+"&p=faq");
+                case 8:
+                    myWebView.loadUrl(baseurl+"&p=gallery");
             }
         } catch(Exception e) {
             //Cheers("Item Selection Error: "+e.getMessage());
@@ -854,6 +848,7 @@ public class MainActivity extends ActionBarActivity {
             break;
         }
     }
+    /*
     private boolean servicesConnected() {
         // Check that Google Play services is available
         int resultCode = GooglePlayServicesUtil.
@@ -874,6 +869,7 @@ public class MainActivity extends ActionBarActivity {
             return false;
         }
     }
+    */
 
     /*** *** NOTIFICATIONS *** ***/
     public void testNote(String event, String location) {

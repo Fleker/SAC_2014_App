@@ -13,6 +13,9 @@
         -->
         <!--Register if no profile, otherwise, profile-->
         <item>Register</item>
+        <item>Login</item>
+        <item>FAQ</item>
+        <item>Gallery</item>
 
 
     </string-array>
