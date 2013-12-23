@@ -14,7 +14,7 @@
         <ImageView
             android:layout_height="60dp"
             android:layout_width="60dp"
-            android:src="@android:drawable/ic_menu_camera"/>
+            android:src="@drawable/ic_action_camera"/>
         <TextView
             android:id="@+id/savebtn"
             android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
         <ImageView
             android:layout_height="60dp"
             android:layout_width="60dp"
-            android:src="@android:drawable/ic_menu_gallery"/>
+            android:src="@drawable/ic_action_picture"/>
         <TextView
             android:id="@+id/savebtn"
             android:layout_marginLeft="12dp"

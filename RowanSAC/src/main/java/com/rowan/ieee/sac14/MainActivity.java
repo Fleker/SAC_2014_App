@@ -108,6 +108,7 @@ public class MainActivity extends ActionBarActivity {
     private AlbumStorageDirFactory mAlbumStorageDirFactory = null;
 
     public static final String defaulturl = "http://rowan.edu/clubs/ieee/sac/?app=1";
+    public boolean backtwo;
 
 
     @Override
@@ -134,6 +135,15 @@ public class MainActivity extends ActionBarActivity {
         image.setMinimumHeight(height);*/
 
         mDrawerList.addHeaderView(image);
+        v = new ImageView(getBaseContext());
+        ImageView image2;
+        image2 = new ImageView(v.getContext());
+        image2.setImageDrawable(v.getResources().getDrawable(R.drawable.nav_bar_header));
+        image2.setScaleType(ImageView.ScaleType.MATRIX);
+        //ImageView image2 = image;
+        image2.setVisibility(View.INVISIBLE);
+        image2.setMinimumHeight(80);
+        mDrawerList.addFooterView(image2);
         // set up the drawer's list view with items and click listener
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mPlanetTitles));
@@ -183,7 +193,7 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
-
+        backtwo = false;
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if (type.startsWith("image/")) {
                 try {
@@ -193,6 +203,7 @@ public class MainActivity extends ActionBarActivity {
                 }
             }
         } else if(intent.getStringExtra("reupload") != null) {
+            backtwo = true;
             performFileSearch();
             myWebView.loadUrl(defaulturl);
         } else { /* Launched directly */
@@ -267,6 +278,7 @@ public class MainActivity extends ActionBarActivity {
             return true;
         } else if(keyCode == KeyEvent.KEYCODE_BACK) {
             onBackPressed();
+            return true;
         }
         // If it wasn't the Back key or there's no web page history, bubble up to the default
         // system behavior (probably exit the activity)
@@ -274,8 +286,9 @@ public class MainActivity extends ActionBarActivity {
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        //    finish();
+        //Cheers(backtwo+" <-");
+        // super.onBackPressed();
+            finish();
 
     }
     @Override
@@ -595,32 +608,36 @@ public class MainActivity extends ActionBarActivity {
             selectItem(position);
         }
     }
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+       // super.onSaveInstanceState(outState);
+    }
     private void selectItem(int p) {
         int position = 0;
         if(p > 0)
             position = p - 1;
         // update the main content by replacing fragments
-        android.app.Fragment fragment = new PlanetFragment();
+        /*android.app.Fragment fragment = new PlanetFragment();
         Bundle args = new Bundle();
         args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
         fragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.webview, fragment).commit();
+       // fragmentManager.executePendingTransactions();
+       */
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
-        //@TODO Fomrat Strings
+        //@TODO Format Strings
         mDrawerLayout.closeDrawer(mDrawerList);
-        //@TODO Load new webpage
-
-        //@TODO Load new webpage
         try {
             String baseurl = "http://rowan.edu/clubs/ieee/sac/index.php?app=1";
             //Context
             if(true) {
                 mPlanetTitles[0] = "Now";
+               // mPlanetTitles[0] = getResources().getString(R.string.v);
             }
             String fiveurl = "http://rowan.edu/clubs/ieee/sac/index.php?p=registration&app=1";
             if(false) /*Registered*/ {
@@ -708,7 +725,7 @@ public class MainActivity extends ActionBarActivity {
 
     /**
      * Fragment that appears in the "content_frame", shows a planet
-     */
+
     public static class PlanetFragment extends android.app.Fragment {
         public static final String ARG_PLANET_NUMBER = "planet_number";
 
@@ -730,7 +747,7 @@ public class MainActivity extends ActionBarActivity {
             //getActivity().setTitle(planet);
             return rootView;
         }
-    }
+    }*/
     @Override
     protected void onActivityResult(
             int requestCode, int resultCode, Intent data) {
@@ -766,6 +783,7 @@ public class MainActivity extends ActionBarActivity {
                 break;
             } // switch
             case READ_REQUEST_CODE:
+                //Cheers(String.valueOf(resultCode));
                 if(resultCode == RESULT_OK){
                     try {
                         Intent upload = new Intent(this, UploadPhoto.class);
@@ -801,6 +819,15 @@ public class MainActivity extends ActionBarActivity {
 
                     } catch(Exception e) {
                         Cheers(getResources().getString(R.string.photovoid));
+                    }
+                } else {
+                    if(backtwo) {
+                       // Cheers("Going back two steps!");
+                        try {
+                            onBackPressed();
+                        } catch(Exception e) {
+                            Cheers(e.getMessage()+"");
+                        }
                     }
                 }
             break;

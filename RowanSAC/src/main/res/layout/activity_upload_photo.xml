@@ -14,7 +14,7 @@
             android:layout_height="0dip"
             android:layout_width="match_parent"
             android:src="@drawable/ic_launcher"
-            android:layout_weight="95"
+            android:layout_weight="87"
             android:layout_marginTop="10dp"
             android:id="@+id/upload_photo_preview"
             android:layout_gravity="center"
