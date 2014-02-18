@@ -21,6 +21,8 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -40,6 +42,7 @@ import com.google.android.gms.maps.internal.b;
 
 import android.os.Bundle;
 import android.text.format.Time;
+import android.util.Config;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -221,6 +224,22 @@ public class MainActivity extends ActionBarActivity {
          background.setAlpha(160);
          layout.setBackground(background);**/
         //findViewById(R.id.left_drawer).getBackground().setAlpha(160);
+
+        //Of course, if we aren't online, the app should be killed:
+        if(!isOnline()) {
+            Cheers("Sorry, you must be online to use this app.");
+            finish();
+        }
+    }
+    public boolean isOnline() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
     }
     void handleSendImage(Intent data) {
         //Cheers("Intent");
@@ -666,7 +685,7 @@ public class MainActivity extends ActionBarActivity {
                     myWebView.loadUrl(fiveurl);
                     break;
                 case 6:
-                    myWebView.loadUrl(baseurl+"&p=login");
+                    myWebView.loadUrl(baseurl+"&p=vote");
                     break;
                 case 7:
                     myWebView.loadUrl(baseurl+"&p=faq");
