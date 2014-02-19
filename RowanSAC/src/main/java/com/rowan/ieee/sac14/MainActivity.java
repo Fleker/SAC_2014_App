@@ -689,8 +689,10 @@ public class MainActivity extends ActionBarActivity {
                     break;
                 case 7:
                     myWebView.loadUrl(baseurl+"&p=faq");
+                    break;
                 case 8:
                     myWebView.loadUrl(baseurl+"&p=gallery");
+                    break;
             }
         } catch(Exception e) {
             //Cheers("Item Selection Error: "+e.getMessage());
